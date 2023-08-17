@@ -1,5 +1,5 @@
 import {
-  StyleSheet, Text, TextInput, View,
+  StyleSheet, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import React from 'react';
 import AppBar from '../components/AppBar';
@@ -17,7 +17,9 @@ const LogInScreen = () => (
 
       <View style={styles.footer}>
         <Text style={styles.footerText}>Not registered?</Text>
-        <Text style={styles.footerLink}>Sign up here!</Text>
+        <TouchableOpacity>
+          <Text style={styles.footerLink}>Sign up here!</Text>
+        </TouchableOpacity>
       </View>
     </View>
   </View>

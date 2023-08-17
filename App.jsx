@@ -7,12 +7,12 @@ import MemoListScreen from './src/screens/MemoListScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 
 const App = () => (
-  // <MemoListScreen />
+  <MemoListScreen />
   // <MemoDetailScreen />
   // <MemoEditScreen />
   // <MemoCreateScreen />
   // <LogInScreen />
-  <SignUpScreen />
+  // <SignUpScreen />
 );
 
 export default App;

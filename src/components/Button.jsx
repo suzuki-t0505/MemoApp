@@ -1,15 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { string } from 'prop-types';
+import { func, string } from 'prop-types';
 
-const Button = ({ label }) => (
-  <View style={styles.buttonContainer}>
+const Button = ({ label, onPress }) => (
+  <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
     <Text style={styles.buttonLabel}>{label}</Text>
-  </View>
+  </TouchableOpacity>
 );
 
 Button.propTypes = {
   label: string.isRequired,
+  onPress: func,
+};
+
+Button.defaultProps = {
+  onPress: null,
 };
 
 const styles = StyleSheet.create({

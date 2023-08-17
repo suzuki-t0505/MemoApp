@@ -8,7 +8,7 @@ const MemoListScreen = () => (
   <View style={styles.container}>
     <AppBar />
     <MemoList />
-    <CircleButton style={{ top: 160, bottom: 'auto' }} name="plus" />
+    <CircleButton name="plus" />
   </View>
 );
 
