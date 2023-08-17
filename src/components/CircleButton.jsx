@@ -1,16 +1,21 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 /* eslint-disable-next-line */
-import { string } from 'prop-types';
+import { string, shape } from 'prop-types';
 
-const CircleButton = ({ children }) => (
-  <View style={styles.circleButton}>
+const CircleButton = ({ children, style }) => (
+  <View style={[styles.circleButton, style]}>
     <Text style={styles.circleButtonLabel}>{ children }</Text>
   </View>
 );
 
 CircleButton.propTypes = {
   children: string.isRequired,
+  style: shape(),
+};
+
+CircleButton.defaultProps = {
+  style: null,
 };
 
 const styles = StyleSheet.create({
