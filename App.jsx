@@ -1,10 +1,10 @@
 import React from 'react';
 import MemoDetailScreen from './src/screens/MemoDetailScreen';
-// import MemoListScreen from './src/screens/MemoListScreen';
+import MemoListScreen from './src/screens/MemoListScreen';
 
 const App = () => (
-  // <MemoListScreen />
-  <MemoDetailScreen />
+  <MemoListScreen />
+  // <MemoDetailScreen />
 );
 
 export default App;
