@@ -1,20 +1,20 @@
 import {
-  Alert,
   KeyboardAvoidingView, StyleSheet, TextInput, View,
 } from 'react-native';
 import React from 'react';
-import AppBar from '../components/AppBar';
 import CircleButton from '../components/CircleButton';
 
-const MemoEditScreen = () => (
+const MemoEditScreen = ({ navigation }) => (
   <KeyboardAvoidingView style={styles.container} behavior="height">
-    <AppBar />
 
     <View style={styles.inputContainer}>
       <TextInput value="買い物リスト" multiline style={styles.input} />
     </View>
 
-    <CircleButton name="check" onPress={() => { Alert.alert('Pressed!'); }} />
+    <CircleButton
+      name="check"
+      onPress={() => { navigation.goBack(); }}
+    />
   </KeyboardAvoidingView>
 );
 
