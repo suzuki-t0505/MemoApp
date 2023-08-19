@@ -1,42 +1,63 @@
 import {
   StyleSheet, Text, TextInput, View, TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../components/Button';
 
-const SignUpScreen = ({ navigation }) => (
-  <View style={styles.container}>
+const SignUpScreen = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    <View style={styles.inner}>
-      <Text style={styles.title}>Sign Up</Text>
-      <TextInput style={styles.input} value="Email Address" />
-      <TextInput style={styles.input} value="Password" />
-      <Button
-        label="submit"
-        onPress={() => {
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'MemoList' }],
-          });
-        }}
-      />
+  return (
+    <View style={styles.container}>
 
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>Already registered?</Text>
-        <TouchableOpacity
+      <View style={styles.inner}>
+        <Text style={styles.title}>Sign Up</Text>
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={(text) => { setEmail(text); }}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          placeholder="Email Address"
+          textContentType="emailAddress"
+        />
+        <TextInput
+          style={styles.input}
+          value={password}
+          onChangeText={(text) => { setPassword(text); }}
+          autoCapitalize="none"
+          placeholder="Password"
+          secureTextEntry
+          textContentType="password"
+        />
+        <Button
+          label="submit"
           onPress={() => {
             navigation.reset({
               index: 0,
-              routes: [{ name: 'LogIn' }],
+              routes: [{ name: 'MemoList' }],
             });
           }}
-        >
-          <Text style={styles.footerLink}>Log in</Text>
-        </TouchableOpacity>
+        />
+
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>Already registered?</Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.reset({
+                index: 0,
+                routes: [{ name: 'LogIn' }],
+              });
+            }}
+          >
+            <Text style={styles.footerLink}>Log in</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
