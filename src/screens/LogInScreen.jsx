@@ -2,13 +2,27 @@ import {
   Alert,
   StyleSheet, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
-import React, { useCallback, useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useCallback, useEffect, useState } from 'react';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import Button from '../components/Button';
 
 const LogInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MemoList' }],
+        });
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   const handlePress = useCallback(() => {
     if (email === '' || password === '') return;

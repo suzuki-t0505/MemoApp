@@ -17,7 +17,7 @@ initializeApp(firebaseConfig);
 const App = () => (
   <NavigationContainer>
     <Stack.Navigator
-      initialRouteName="SignUp"
+      initialRouteName="LogIn"
       screenOptions={{
         headerStyle: { backgroundColor: '#467FD3' },
         headerTitleStyle: { color: '#ffffff' },
