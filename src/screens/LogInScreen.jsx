@@ -1,12 +1,32 @@
 import {
+  Alert,
   StyleSheet, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import Button from '../components/Button';
 
 const LogInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handlePress = useCallback(() => {
+    if (email === '' || password === '') return;
+
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const { user } = userCredential;
+        console.log(user.uid);
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MemoList' }],
+        });
+      })
+      .catch((error) => {
+        Alert.alert(error.code);
+      });
+  });
 
   return (
     <View style={styles.container}>
@@ -33,12 +53,7 @@ const LogInScreen = ({ navigation }) => {
         />
         <Button
           label="submit"
-          onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'MemoList' }],
-            });
-          }}
+          onPress={handlePress}
         />
 
         <View style={styles.footer}>
