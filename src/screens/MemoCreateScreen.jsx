@@ -8,7 +8,6 @@ import { getAuth } from 'firebase/auth';
 import { firebaseConfig } from '../../env';
 import CircleButton from '../components/CircleButton';
 
-
 const MemoCreateScreen = ({ navigation }) => {
   const [bodyText, setBodyText] = useState('');
 
@@ -16,16 +15,19 @@ const MemoCreateScreen = ({ navigation }) => {
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const { currentUser } = getAuth();
-    try {
-      const docRef = addDoc(collection(db, `users/${currentUser.uid}/memos`), {
-        bodyText,
-        updatedAt: new Date(),
-      });
-      console.log('Created!', docRef);
-      navigation.goBack();
-    } catch (error) {
-      console.log('Error!', error);
-    }
+    const createMemo = async () => {
+      try {
+        const docRef = await addDoc(collection(db, `users/${currentUser.uid}/memos`), {
+          bodyText,
+          updatedAt: new Date(),
+        });
+        console.log('Created!', docRef.id);
+        navigation.goBack();
+      } catch (error) {
+        console.log('Error!', error);
+      }
+    };
+    createMemo();
   }, [bodyText]);
 
   return (
@@ -43,11 +45,11 @@ const MemoCreateScreen = ({ navigation }) => {
 
       <CircleButton
         name="check"
-        onPress={ handlePress }
-        />
+        onPress={handlePress}
+      />
     </KeyboardAvoidingView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
