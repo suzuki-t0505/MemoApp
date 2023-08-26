@@ -10,9 +10,10 @@ import MemoListScreen from './src/screens/MemoListScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import { firebaseConfig } from './env';
 
-const Stack = createStackNavigator();
-
+// require('firbase/firestore');
 initializeApp(firebaseConfig);
+
+const Stack = createStackNavigator();
 
 const App = () => (
   <NavigationContainer>

@@ -1,22 +1,53 @@
 import {
   KeyboardAvoidingView, StyleSheet, TextInput, View,
 } from 'react-native';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { firebaseConfig } from '../../env';
 import CircleButton from '../components/CircleButton';
 
-const MemoCreateScreen = ({ navigation }) => (
-  <KeyboardAvoidingView style={styles.container} behavior="height">
 
-    <View style={styles.inputContainer}>
-      <TextInput value="" multiline style={styles.input} />
-    </View>
+const MemoCreateScreen = ({ navigation }) => {
+  const [bodyText, setBodyText] = useState('');
 
-    <CircleButton
-      name="check"
-      onPress={() => { navigation.goBack(); }}
-    />
-  </KeyboardAvoidingView>
-);
+  const handlePress = useCallback(() => {
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const { currentUser } = getAuth();
+    try {
+      const docRef = addDoc(collection(db, `users/${currentUser.uid}/memos`), {
+        bodyText,
+        updatedAt: new Date(),
+      });
+      console.log('Created!', docRef);
+      navigation.goBack();
+    } catch (error) {
+      console.log('Error!', error);
+    }
+  }, [bodyText]);
+
+  return (
+    <KeyboardAvoidingView style={styles.container} behavior="height">
+
+      <View style={styles.inputContainer}>
+        <TextInput
+          value={bodyText}
+          multiline
+          style={styles.input}
+          onChangeText={(text) => { setBodyText(text); }}
+          autoFocus
+        />
+      </View>
+
+      <CircleButton
+        name="check"
+        onPress={ handlePress }
+        />
+    </KeyboardAvoidingView>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
